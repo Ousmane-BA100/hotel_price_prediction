@@ -10,6 +10,18 @@ Le dataset utilisé dans ce projet combine des données réelles et des données
 Les caractéristiques des hôtels et les informations sur les réservations proviennent de **données fournies**, tandis que les **prix sont générés artificiellement** afin de simuler un scénario réaliste et entraîner un modèle de Machine Learning.  
 
 ---
+## 🎯 Stratégie pour générer des prix réalistes
+
+### 📌 Objectif :
+- Prix moyen autour de **200-300 €**.
+- Minimum autour de **70 €**, maximum autour de **500 €** (éviter les valeurs extrêmes).
+
+### 🔍 Facteurs influençant le prix :
+- **Stock bas** → Prix plus élevés.
+- **Piscine, parking, marque d'hôtel** → Ajoutent une valeur au prix.
+- **Variabilité aléatoire contrôlée** pour éviter les valeurs trop extrêmes.
+
+---
 
 ## 🏥 Contexte  
 La **DGCCRF** d’un pays imaginaire a reçu des plaintes sur l’agence en ligne **1001NightsHotels.com**, suspectée de pratiquer des **prix à la tête du client**.  
