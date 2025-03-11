@@ -1,8 +1,33 @@
 # 📌 Projet : Prédiction des Prix des Hôtels 🏨
 
-Bienvenue dans ce projet de **prédiction des prix des hôtels** ! Ce projet utilise **l'apprentissage automatique** pour estimer les prix des chambres en fonction de plusieurs caractéristiques des hôtels et des réservations.
+## 📌 Présentation du Dataset  
+Le dataset contient plusieurs informations sur les hôtels et les réservations, notamment :  
 
-Nous avons également ajouté une **API Flask** et une **interface Streamlit** pour permettre aux utilisateurs d'effectuer des prédictions en temps réel. Le projet est déployable avec **Docker** et **Docker Compose** pour faciliter son utilisation et sa mise en production.
+📍 **Caractéristiques des hôtels** : localisation, marque, parking, piscine, politique enfants.  
+🏨 **Informations sur les réservations** : ville, date, langue du client, mobile ou non, stock de chambres.  
+💰 **Prix des hôtels** : valeur cible à prédire.  
+
+Les données proviennent d'une **API** qui simule le comportement d'une agence de voyage en ligne.  
+
+---
+
+## 🏥 Contexte  
+La **DGCCRF** d’un pays imaginaire a reçu des plaintes sur l’agence en ligne **1001NightsHotels.com**, suspectée de pratiquer des **prix à la tête du client**.  
+L’objectif est d’analyser le système de tarification de cette agence et de vérifier s’il existe des **irrégularités**.  
+
+Cependant, nous ne disposons pas d’un **jeu d'entraînement classique** !  
+Les prix doivent être récupérés en effectuant des **requêtes à l'API**, ce qui signifie que notre modèle devra être entraîné **progressivement avec les données collectées**.  
+
+---
+
+## 🎯 Objectif du projet  
+L'objectif est de :  
+
+✅ **Analyser les facteurs influençant les prix** des hôtels.  
+✅ **Collecter des données via l’API** pour constituer un dataset d'entraînement.  
+✅ **Développer un modèle de Machine Learning** capable de prédire les prix des hôtels avec précision.  
+✅ **Déployer une API Flask et une interface utilisateur** avec Streamlit pour des prédictions en temps réel.  
+
 
 ---
 
