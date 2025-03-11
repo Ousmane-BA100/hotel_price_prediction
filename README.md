@@ -1,6 +1,6 @@
 # 📌 Projet : Prédiction des Prix des Hôtels 🏨
 
-## 📌 Présentation du Dataset  
+## 📊 Présentation du Dataset  
 Le dataset contient plusieurs informations sur les hôtels et les réservations, notamment :  
 
 📍 **Caractéristiques des hôtels** : localisation, marque, parking, piscine, politique enfants.  
