@@ -7,7 +7,8 @@ Le dataset contient plusieurs informations sur les hôtels et les réservations,
 🏨 **Informations sur les réservations** : ville, date, langue du client, mobile ou non, stock de chambres.  
 💰 **Prix des hôtels** : valeur cible à prédire.  
 
-Les données proviennent d'une **API** qui simule le comportement d'une agence de voyage en ligne.  
+Dans ce projet, les données sont **générées artificiellement** pour simuler un contexte réaliste d'une plateforme de réservation en ligne.  
+Elles permettent d'entraîner un modèle de Machine Learning capable d'estimer les prix des hôtels en fonction de plusieurs critères.  
 
 ---
 
@@ -15,8 +16,7 @@ Les données proviennent d'une **API** qui simule le comportement d'une agence d
 La **DGCCRF** d’un pays imaginaire a reçu des plaintes sur l’agence en ligne **1001NightsHotels.com**, suspectée de pratiquer des **prix à la tête du client**.  
 L’objectif est d’analyser le système de tarification de cette agence et de vérifier s’il existe des **irrégularités**.  
 
-Cependant, nous ne disposons pas d’un **jeu d'entraînement classique** !  
-Les prix doivent être récupérés en effectuant des **requêtes à l'API**, ce qui signifie que notre modèle devra être entraîné **progressivement avec les données collectées**.  
+Cependant, comme nous ne disposons pas d’un **jeu de données réel**, nous avons choisi de **générer les données artificiellement** en nous basant sur des tendances observées dans le secteur hôtelier.  
 
 ---
 
@@ -24,8 +24,8 @@ Les prix doivent être récupérés en effectuant des **requêtes à l'API**, ce
 L'objectif est de :  
 
 ✅ **Analyser les facteurs influençant les prix** des hôtels.  
-✅ **Collecter des données via l’API** pour constituer un dataset d'entraînement.  
-✅ **Développer un modèle de Machine Learning** capable de prédire les prix des hôtels avec précision.  
+✅ **Générer un dataset artificiel** pour entraîner un modèle de prédiction des prix.  
+✅ **Développer un modèle de Machine Learning** capable d'estimer les prix des hôtels avec précision.  
 ✅ **Déployer une API Flask et une interface utilisateur** avec Streamlit pour des prédictions en temps réel.  
 
 
@@ -61,10 +61,9 @@ Avant de commencer, assurez-vous d'avoir installé :
 │   ├── features_hotels.csv       # Caractéristiques des hôtels
 │   ├── synthetic_data.csv        # Données de prix simulées
 │   ├── test_set.csv              # Données de test
-│── model.py                # Script d'entraînement et d'évaluation du modèle
+│── model.ipynb                # Script d'entraînement et d'évaluation du modèle
 │── preprocess.ipynb            # Prétraitement des données
 │── generate_data.py        # Génération des données artificielles
-│── predict.ipynb               # Faire des prédictions
 │── backend/                 # Dossier du backend (API Flask)
 │   ├── Dockerfile 📄         # Dockerfile pour l'API
 │   ├── backend_api.py 🖥️      # Code source de l'API
