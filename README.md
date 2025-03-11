@@ -1,14 +1,13 @@
 # 📌 Projet : Prédiction des Prix des Hôtels 🏨
 
 ## 📊 Présentation du Dataset  
-Le dataset contient plusieurs informations sur les hôtels et les réservations, notamment :  
+Le dataset utilisé dans ce projet combine des données réelles et des données simulées :  
 
-📍 **Caractéristiques des hôtels** : localisation, marque, parking, piscine, politique enfants.  
-🏨 **Informations sur les réservations** : ville, date, langue du client, mobile ou non, stock de chambres.  
-💰 **Prix des hôtels** : valeur cible à prédire.  
+📍 **Caractéristiques des hôtels** (`features_hotels.csv`) : localisation, marque, parking, piscine, politique enfants.  
+🏨 **Informations sur les réservations** (`test_set.csv`) : ville, date, langue du client, mobile ou non, stock de chambres.  
+💰 **Prix des hôtels** (`synthetic_data.csv`) : valeur cible à prédire, générée artificiellement.  
 
-Dans ce projet, les données sont **générées artificiellement** pour simuler un contexte réaliste d'une plateforme de réservation en ligne.  
-Elles permettent d'entraîner un modèle de Machine Learning capable d'estimer les prix des hôtels en fonction de plusieurs critères.  
+Les caractéristiques des hôtels et les informations sur les réservations proviennent de **données fournies**, tandis que les **prix sont générés artificiellement** afin de simuler un scénario réaliste et entraîner un modèle de Machine Learning.  
 
 ---
 
@@ -16,7 +15,7 @@ Elles permettent d'entraîner un modèle de Machine Learning capable d'estimer l
 La **DGCCRF** d’un pays imaginaire a reçu des plaintes sur l’agence en ligne **1001NightsHotels.com**, suspectée de pratiquer des **prix à la tête du client**.  
 L’objectif est d’analyser le système de tarification de cette agence et de vérifier s’il existe des **irrégularités**.  
 
-Cependant, comme nous ne disposons pas d’un **jeu de données réel**, nous avons choisi de **générer les données artificiellement** en nous basant sur des tendances observées dans le secteur hôtelier.  
+Cependant, comme les prix réels ne sont pas disponibles, nous avons choisi de **les générer artificiellement** en nous basant sur des tendances observées dans le secteur hôtelier.  
 
 ---
 
@@ -24,10 +23,9 @@ Cependant, comme nous ne disposons pas d’un **jeu de données réel**, nous av
 L'objectif est de :  
 
 ✅ **Analyser les facteurs influençant les prix** des hôtels.  
-✅ **Générer un dataset artificiel** pour entraîner un modèle de prédiction des prix.  
+✅ **Générer des prix artificiels** pour entraîner un modèle de prédiction.  
 ✅ **Développer un modèle de Machine Learning** capable d'estimer les prix des hôtels avec précision.  
-✅ **Déployer une API Flask et une interface utilisateur** avec Streamlit pour des prédictions en temps réel.  
-
+✅ **Déployer une API Flask et une interface utilisateur** avec Streamlit pour des prédictions en temps réel.    
 
 ---
 
