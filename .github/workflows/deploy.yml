@@ -24,6 +24,7 @@ jobs:
     - name: 🔑 Configure SSH (avec Debug)
       run: |
         set -x  # Mode Debug - Affiche chaque commande avant exécution
+        
         echo "🚀 Création du dossier SSH..."
         mkdir -p ~/.ssh || { echo "❌ Erreur : Impossible de créer ~/.ssh" ; exit 1; }
         
@@ -31,12 +32,13 @@ jobs:
         echo "${{ secrets.AWS_SSH_KEY }}" > ~/.ssh/id_rsa || { echo "❌ Erreur : Impossible d'écrire la clé SSH" ; exit 1; }
         chmod 600 ~/.ssh/id_rsa || { echo "❌ Erreur : Impossible de modifier les permissions de la clé SSH" ; exit 1; }
         
-        echo "🔍 Ajout de l'hôte SSH..."
-        ssh-keyscan -H ${{ secrets.AWS_HOST }} >> ~/.ssh/known_hosts || { echo "❌ Erreur : Impossible d'ajouter l'hôte SSH" ; exit 1; }
+        echo "🔍 Vérification de l'adresse AWS_HOST..."
+        echo "Adresse AWS_HOST: ${{ secrets.AWS_HOST }}"
+
+        echo "🔍 Test de connexion SSH..."
+        ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ubuntu@${{ secrets.AWS_HOST }} "echo '✅ Connexion SSH réussie'" || { echo "❌ Erreur : Échec de connexion SSH" ; exit 1; }
 
         echo "✅ Configuration SSH terminée !"
-      env:
-        AWS_HOST: ${{ secrets.AWS_HOST }}
 
     - name: 🔍 Debug après SSH
       run: |
@@ -47,15 +49,43 @@ jobs:
 
     - name: 📂 Copier les fichiers sur AWS
       run: |
-        rsync -avz -e "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no" . ubuntu@${{ secrets.AWS_HOST }}:/home/ubuntu/hotel_price_prediction
+        echo "🚀 Début du transfert des fichiers..."
+        rsync -avz --ignore-existing -e "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no" . ubuntu@${{ secrets.AWS_HOST }}:/home/ubuntu/hotel_price_prediction
+        echo "✅ Fichiers copiés avec succès !"
       continue-on-error: true  # Ne pas stopper immédiatement si échec
 
     - name: 🚀 Déployer et redémarrer les services
       run: |
         ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ubuntu@${{ secrets.AWS_HOST }} << 'EOF'
+        set -x
+        echo "🚀 Connexion SSH réussie, début du déploiement..."
+
+        # Vérifier si Docker et Docker Compose sont installés
+        if ! command -v docker &> /dev/null; then
+          echo "❌ Docker n'est pas installé !"
+          exit 1
+        fi
+
+        if ! command -v docker-compose &> /dev/null; then
+          echo "❌ Docker Compose n'est pas installé !"
+          exit 1
+        fi
+
+        # Créer le répertoire si nécessaire
+        mkdir -p /home/ubuntu/hotel_price_prediction
+
+        # Accéder au dossier du projet
         cd /home/ubuntu/hotel_price_prediction
-        docker-compose down
+
+        # Stopper les anciens services
+        echo "🛑 Arrêt des anciens services..."
+        docker-compose down || true
+
+        # Déployer l'application
+        echo "🚀 Lancement des nouveaux services..."
         docker-compose up --build -d
+
+        echo "✅ Déploiement terminé !"
         EOF
       continue-on-error: true  # Ne pas stopper immédiatement si échec
 
