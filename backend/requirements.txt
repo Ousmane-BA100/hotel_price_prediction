@@ -3,3 +3,8 @@ pandas
 numpy
 joblib
 scikit-learn
+pytest
+pluggy
+exceptiongroup
+werkzeug
+click

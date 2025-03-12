@@ -1,55 +1,81 @@
-from flask import Flask, request, jsonify
 import joblib
-import pandas as pd
 import os
+import pandas as pd
+from flask import Flask, request, jsonify
 
-# Initialiser l'application Flask
 app = Flask(__name__)
 
-# Charger le modèle sauvegardé
-model_path = "model/random_forest_model.pkl"  # Mets le bon nom de ton fichier modèle
-if os.path.exists(model_path):
-    model = joblib.load(model_path)
-    print("✅ Modèle chargé avec succès !")
-else:
-    print("❌ Erreur : Modèle introuvable ! Vérifie le chemin.")
+# 📌 Définir le chemin du modèle
+MODEL_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "model", "random_forest_model.pkl")
 
-# Définition de la route de test
+# 📌 Charger le modèle
+try:
+    print(f"🔍 Tentative de chargement du modèle depuis : {MODEL_PATH}")
+    model = joblib.load(MODEL_PATH)  # Utilisation du chemin absolu
+    expected_features = model.feature_names_in_  # Vérifie les features attendues
+    print(f"✅ Modèle chargé avec succès ! Features attendues : {expected_features}")
+except Exception as e:
+    print(f"❌ Erreur lors du chargement du modèle : {e}")
+    model = None
+
+# 📌 Encodage des variables catégoriques
+city_encoding = {
+    "amsterdam": 0,
+    "paris": 1,
+    "london": 2,
+    "berlin": 3,
+    "madrid": 4
+}
+
+def preprocess_input(data):
+    """Transforme les données d'entrée pour correspondre au modèle."""
+    df = pd.DataFrame([data])
+
+    # 📌 Vérifier si la ville est connue dans l'encodage
+    if df["city_x"].iloc[0] in city_encoding:
+        df["city_x"] = city_encoding[df["city_x"].iloc[0]]
+    else:
+        return None, f"❌ Ville inconnue : {df['city_x'].iloc[0]}"
+
+    # 📌 Vérifier les colonnes manquantes
+    missing_cols = set(expected_features) - set(df.columns)
+    if missing_cols:
+        return None, f"❌ Colonnes manquantes : {missing_cols}"
+
+    # 📌 Réorganiser les colonnes pour correspondre au modèle
+    df = df[expected_features]
+
+    return df, None
+
 @app.route("/", methods=["GET"])
-def home():
-    return jsonify({"message": "API de prédiction des prix d'hôtels est en ligne 🚀"})
+def health_check():
+    return jsonify({"status": "API is running"}), 200
 
-# Route pour faire des prédictions
 @app.route("/predict", methods=["POST"])
 def predict():
+    if model is None:
+        print("❌ Modèle non disponible")
+        return jsonify({"error": "Modèle non disponible"}), 500
+
+    data = request.get_json()
+    print(f"📥 Données reçues : {data}")
+
+    df_transformed, error = preprocess_input(data)
+
+    if error:
+        print(error)
+        return jsonify({"error": error}), 400  # Mauvaise requête si la ville est inconnue ou colonnes manquantes
+
+    print(f"📊 Données encodées pour la prédiction :\n{df_transformed}")
+
     try:
-        data = request.get_json()  # Récupérer les données JSON
-        print("📥 Données reçues :", data)  # DEBUG : Afficher les données reçues dans le terminal
-        
-        df_input = pd.DataFrame([data])  # Convertir en DataFrame
-        
-        # Supprimer les colonnes inutiles si elles sont présentes
-        columns_to_remove = ["hotel_id", "avatar_id", "price"]
-        df_input = df_input.drop(columns=[col for col in columns_to_remove if col in df_input], errors='ignore')
-
-        print("📊 Données transformées :", df_input)  # DEBUG : Afficher le DataFrame après transformation
-
-        # Encodage de la colonne city_x
-        cities = ["amsterdam", "copenhagen", "madrid", "paris", "rome", "sofia", "valletta", "vienna", "vilnius"]
-        df_input["city_x"] = df_input["city_x"].apply(lambda x: cities.index(x) if x in cities else -1)
-
-        print("📊 Données encodées pour la prédiction :", df_input)  # DEBUG
-
-        # Faire la prédiction
-        prediction = model.predict(df_input)
-        
-        # Retourner le résultat
-        return jsonify({"predicted_price": round(prediction[0], 2)})
-
+        # 📌 Faire la prédiction
+        prediction = model.predict(df_transformed)[0]
+        print(f"✅ Prédiction réussie : {prediction}")
+        return jsonify({"predicted_price": prediction})
     except Exception as e:
-        print("❌ Erreur :", str(e))  # DEBUG : Afficher l'erreur détaillée
-        return jsonify({"error": str(e)}), 400
+        print(f"❌ Erreur interne : {e}")
+        return jsonify({"error": str(e)}), 500
 
-# Lancer l'application
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000, debug=True)
+    app.run(debug=True, host="0.0.0.0", port=5000)
