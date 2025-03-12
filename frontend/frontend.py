@@ -2,7 +2,7 @@ import streamlit as st
 import requests
 
 # URL de l'API Flask
-API_URL = "http://localhost:5000/predict"  # Change l'URL si nécessaire
+API_URL = "http://backend:5000/predict"  # Change l'URL si nécessaire
 
 # Configuration de la page
 st.set_page_config(page_title="🏨 Prédiction du Prix d'une nuit des Hôtels", layout="centered")
