@@ -47,12 +47,19 @@ jobs:
         echo "🔑 Vérification de la clé SSH :"
         cat ~/.ssh/id_rsa || echo "❌ Clé SSH introuvable"
 
-    - name: 📂 Copier les fichiers sur AWS
+    - name: 📂 Vérification et transfert des fichiers sur AWS
       run: |
+        ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ubuntu@${{ secrets.AWS_HOST }} << 'EOF'
+        if [ ! -d "/home/ubuntu/hotel_price_prediction/model" ]; then
+          echo "⚠️ Le dossier /model est manquant ! Création en cours..."
+          mkdir -p /home/ubuntu/hotel_price_prediction/model
+        fi
+        EOF
+
         echo "🚀 Début du transfert des fichiers..."
         rsync -avz --ignore-existing -e "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no" . ubuntu@${{ secrets.AWS_HOST }}:/home/ubuntu/hotel_price_prediction
         echo "✅ Fichiers copiés avec succès !"
-      continue-on-error: false  # Stoppe immédiatement en cas d'échec
+      continue-on-error: false  # Stopper si une erreur critique empêche le transfert
 
     - name: 🚀 Déployer et redémarrer les services
       run: |
@@ -72,7 +79,7 @@ jobs:
         else
             echo "✅ Docker est déjà installé."
         fi
-
+    
         echo "🔍 Vérification de Docker Compose..."
         if ! command -v docker-compose &> /dev/null; then
             echo "❌ Docker Compose n'est pas installé. Installation en cours..."
@@ -82,16 +89,16 @@ jobs:
         else
             echo "✅ Docker Compose est déjà installé."
         fi
-
+    
         echo "🔑 Ajout de l'utilisateur ubuntu au groupe docker..."
         sudo usermod -aG docker ubuntu
-
+    
         echo "📂 Déploiement en cours..."
         cd /home/ubuntu/hotel_price_prediction
-        sudo docker-compose down
-        sudo docker-compose up --build -d
+        docker-compose down
+        docker-compose up --build -d
         EOF
-      continue-on-error: false
+      continue-on-error: false  # Stopper si le déploiement échoue
 
     - name: 🧹 Nettoyage SSH
       run: rm -rf ~/.ssh
