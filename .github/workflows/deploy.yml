@@ -83,12 +83,15 @@ jobs:
             echo "✅ Docker Compose est déjà installé."
         fi
 
+        echo "🔑 Ajout de l'utilisateur ubuntu au groupe docker..."
+        sudo usermod -aG docker ubuntu
+
         echo "📂 Déploiement en cours..."
         cd /home/ubuntu/hotel_price_prediction
-        docker-compose down
-        docker-compose up --build -d
+        sudo docker-compose down
+        sudo docker-compose up --build -d
         EOF
-      continue-on-error: false  # Stoppe immédiatement en cas d'échec
+      continue-on-error: false
 
     - name: 🧹 Nettoyage SSH
       run: rm -rf ~/.ssh
