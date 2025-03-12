@@ -57,35 +57,26 @@ jobs:
     - name: 🚀 Déployer et redémarrer les services
       run: |
         ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ubuntu@${{ secrets.AWS_HOST }} << 'EOF'
-        set -x
-        echo "🚀 Connexion SSH réussie, début du déploiement..."
-
-        # Vérifier si Docker et Docker Compose sont installés
+        set -e  # Stoppe l'exécution si une commande échoue
+    
+        echo "🔄 Mise à jour des paquets..."
+        sudo apt update -y
+    
+        echo "🐳 Vérification de Docker..."
         if ! command -v docker &> /dev/null; then
-          echo "❌ Docker n'est pas installé !"
-          exit 1
+            echo "❌ Docker n'est pas installé. Installation en cours..."
+            sudo apt install -y docker.io
+            sudo systemctl enable docker
+            sudo systemctl start docker
+            echo "✅ Docker installé avec succès !"
+        else
+            echo "✅ Docker est déjà installé."
         fi
-
-        if ! command -v docker-compose &> /dev/null; then
-          echo "❌ Docker Compose n'est pas installé !"
-          exit 1
-        fi
-
-        # Créer le répertoire si nécessaire
-        mkdir -p /home/ubuntu/hotel_price_prediction
-
-        # Accéder au dossier du projet
+    
+        echo "📂 Déploiement en cours..."
         cd /home/ubuntu/hotel_price_prediction
-
-        # Stopper les anciens services
-        echo "🛑 Arrêt des anciens services..."
-        docker-compose down || true
-
-        # Déployer l'application
-        echo "🚀 Lancement des nouveaux services..."
+        docker-compose down
         docker-compose up --build -d
-
-        echo "✅ Déploiement terminé !"
         EOF
       continue-on-error: true  # Ne pas stopper immédiatement si échec
 
