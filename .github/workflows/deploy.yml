@@ -1,0 +1,33 @@
+name: Deploy to AWS
+
+on:
+  push:
+    branches:
+      - main  # Déploie quand on push sur main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 📥 Checkout repository
+      uses: actions/checkout@v3
+
+    - name: 🔑 Configure SSH
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.AWS_SSH_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -H ${{ secrets.AWS_HOST }} >> ~/.ssh/known_hosts
+
+    - name: 📦 Copier les fichiers sur AWS
+      run: |
+        rsync -avz --exclude '.git' ./ ubuntu@${{ secrets.AWS_HOST }}:/home/ubuntu/hotel_price_prediction
+
+    - name: 🚀 Déployer et redémarrer les services
+      run: |
+        ssh ubuntu@${{ secrets.AWS_HOST }} << 'EOF'
+        cd /home/ubuntu/hotel_price_prediction
+        docker-compose down
+        docker-compose up --build -d
+        EOF
