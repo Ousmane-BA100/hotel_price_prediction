@@ -3,7 +3,7 @@ name: 🚀 Déploiement sur AWS
 on:
   push:
     branches:
-      - main  # Déclenche le déploiement sur la branche principale
+      - main
 
 jobs:
   deploy:
@@ -15,28 +15,28 @@ jobs:
 
     - name: 🔑 Configure SSH
       run: |
-        mkdir -p /tmp/ssh
-        echo "$AWS_SSH_KEY" > /tmp/ssh/id_rsa
-        chmod 600 /tmp/ssh/id_rsa
-        ssh-keyscan -H $AWS_HOST >> /tmp/ssh/known_hosts
+        set -e  # Arrêter immédiatement en cas d'erreur
+        mkdir -p ~/.ssh
+        echo "${{ secrets.AWS_SSH_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -H ${{ secrets.AWS_HOST }} >> ~/.ssh/known_hosts
       env:
-        AWS_SSH_KEY: ${{ secrets.AWS_SSH_KEY }}
         AWS_HOST: ${{ secrets.AWS_HOST }}
-
-    - name: 🔍 Debug SSH Key
-      run: ls -l /tmp/ssh && cat /tmp/ssh/id_rsa || echo "SSH key is missing!"
     
+    - name: 🔍 Debug SSH Key
+      run: ls -lah ~/.ssh && cat ~/.ssh/id_rsa || echo "❌ SSH key is missing!"
+
     - name: 📂 Copier les fichiers sur AWS
       run: |
-        rsync -avz -e "ssh -i /tmp/ssh/id_rsa -o StrictHostKeyChecking=no" . ubuntu@$AWS_HOST:/home/ubuntu/hotel_price_prediction
+        rsync -avz -e "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no" . ubuntu@${{ secrets.AWS_HOST }}:/home/ubuntu/hotel_price_prediction
 
     - name: 🚀 Déployer et redémarrer les services
       run: |
-        ssh -i /tmp/ssh/id_rsa -o StrictHostKeyChecking=no ubuntu@$AWS_HOST << 'EOF'
+        ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no ubuntu@${{ secrets.AWS_HOST }} << 'EOF'
         cd /home/ubuntu/hotel_price_prediction
         docker-compose down
         docker-compose up --build -d
         EOF
 
     - name: 🧹 Nettoyage SSH
-      run: rm -rf /tmp/ssh
+      run: rm -rf ~/.ssh
