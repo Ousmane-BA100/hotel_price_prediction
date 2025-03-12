@@ -1,0 +1,30 @@
+# 🛑 Ignorer les fichiers temporaires de Jupyter Notebook
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# 🛑 Ignorer les fichiers Python
+__pycache__/
+*.pyc
+*.pyo
+
+# 🛑 Ignorer les environnements virtuels
+venv/
+.env/
+
+# 🛑 Ignorer les fichiers de configuration de l'IDE
+.vscode/
+.idea/
+
+# 🛑 Ignorer les fichiers Docker générés
+*.log
+docker-compose.override.yml
+
+# 🛑 Ignorer les fichiers Streamlit et caches
+frontend/.streamlit/
+frontend/__pycache__/
+
+# 🛑 Ignorer les modèles entraînés
+backend/model/*.pkl
+
+# 🛑 Ignorer les datasets temporaires
+data/
