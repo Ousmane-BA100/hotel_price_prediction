@@ -1,4 +1,4 @@
-name: 🚀 Déploiement sur AWS
+name: 🚀 Déploiement sur AWS avec Debug
 
 on:
   push:
@@ -13,22 +13,42 @@ jobs:
     - name: 📥 Checkout repository
       uses: actions/checkout@v4
 
-    - name: 🔑 Configure SSH
+    - name: 🔍 Debug avant SSH
       run: |
-        set -e  # Arrêter immédiatement en cas d'erreur
-        mkdir -p ~/.ssh
-        echo "${{ secrets.AWS_SSH_KEY }}" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
-        ssh-keyscan -H ${{ secrets.AWS_HOST }} >> ~/.ssh/known_hosts
+        echo "💡 Debugging before SSH setup"
+        echo "🏗️ OS Information:"
+        uname -a
+        echo "🔍 Liste des fichiers dans le répertoire courant :"
+        ls -lah
+
+    - name: 🔑 Configure SSH (avec Debug)
+      run: |
+        set -x  # Mode Debug - Affiche chaque commande avant exécution
+        echo "🚀 Création du dossier SSH..."
+        mkdir -p ~/.ssh || { echo "❌ Erreur : Impossible de créer ~/.ssh" ; exit 1; }
+        
+        echo "🔑 Ajout de la clé SSH..."
+        echo "${{ secrets.AWS_SSH_KEY }}" > ~/.ssh/id_rsa || { echo "❌ Erreur : Impossible d'écrire la clé SSH" ; exit 1; }
+        chmod 600 ~/.ssh/id_rsa || { echo "❌ Erreur : Impossible de modifier les permissions de la clé SSH" ; exit 1; }
+        
+        echo "🔍 Ajout de l'hôte SSH..."
+        ssh-keyscan -H ${{ secrets.AWS_HOST }} >> ~/.ssh/known_hosts || { echo "❌ Erreur : Impossible d'ajouter l'hôte SSH" ; exit 1; }
+
+        echo "✅ Configuration SSH terminée !"
       env:
         AWS_HOST: ${{ secrets.AWS_HOST }}
-    
-    - name: 🔍 Debug SSH Key
-      run: ls -lah ~/.ssh && cat ~/.ssh/id_rsa || echo "❌ SSH key is missing!"
+
+    - name: 🔍 Debug après SSH
+      run: |
+        echo "📂 Contenu du dossier SSH :"
+        ls -lah ~/.ssh
+        echo "🔑 Vérification de la clé SSH :"
+        cat ~/.ssh/id_rsa || echo "❌ Clé SSH introuvable"
 
     - name: 📂 Copier les fichiers sur AWS
       run: |
         rsync -avz -e "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no" . ubuntu@${{ secrets.AWS_HOST }}:/home/ubuntu/hotel_price_prediction
+      continue-on-error: true  # Ne pas stopper immédiatement si échec
 
     - name: 🚀 Déployer et redémarrer les services
       run: |
@@ -37,6 +57,7 @@ jobs:
         docker-compose down
         docker-compose up --build -d
         EOF
+      continue-on-error: true  # Ne pas stopper immédiatement si échec
 
     - name: 🧹 Nettoyage SSH
       run: rm -rf ~/.ssh
