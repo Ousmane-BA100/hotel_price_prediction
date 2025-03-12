@@ -52,7 +52,7 @@ jobs:
         echo "🚀 Début du transfert des fichiers..."
         rsync -avz --ignore-existing -e "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no" . ubuntu@${{ secrets.AWS_HOST }}:/home/ubuntu/hotel_price_prediction
         echo "✅ Fichiers copiés avec succès !"
-      continue-on-error: true  # Ne pas stopper immédiatement si échec
+      continue-on-error: false  # Stoppe immédiatement en cas d'échec
 
     - name: 🚀 Déployer et redémarrer les services
       run: |
@@ -72,13 +72,23 @@ jobs:
         else
             echo "✅ Docker est déjà installé."
         fi
-    
+
+        echo "🔍 Vérification de Docker Compose..."
+        if ! command -v docker-compose &> /dev/null; then
+            echo "❌ Docker Compose n'est pas installé. Installation en cours..."
+            sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+            sudo chmod +x /usr/local/bin/docker-compose
+            echo "✅ Docker Compose installé avec succès !"
+        else
+            echo "✅ Docker Compose est déjà installé."
+        fi
+
         echo "📂 Déploiement en cours..."
         cd /home/ubuntu/hotel_price_prediction
         docker-compose down
         docker-compose up --build -d
         EOF
-      continue-on-error: true  # Ne pas stopper immédiatement si échec
+      continue-on-error: false  # Stoppe immédiatement en cas d'échec
 
     - name: 🧹 Nettoyage SSH
       run: rm -rf ~/.ssh
