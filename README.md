@@ -153,9 +153,9 @@ docker run -p 5000:5000 hotel_price_backend
 ```bash
 docker-compose up --build
 ```
- 🌍 Accès aux services :
-📌 API Flask (Local) : http://localhost:5000
-📌 API Flask (Déployé sur AWS) : http://EC2_PUBLIC_IP:5000
+### 🌍 Accès aux services :
+- 📌 **API Flask (Local)** : [http://localhost:5000](http://localhost:5000)
+- 📌 **API Flask (Déployé sur AWS)** : [http://EC2_PUBLIC_IP:5000](http://EC2_PUBLIC_IP:5000)
 
 ---
 
