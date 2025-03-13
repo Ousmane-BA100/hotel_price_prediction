@@ -190,6 +190,17 @@ docker-compose run backend pytest
 
 ---
 
+## 🚀 Déploiement Automatisé avec GitHub Actions
+
+Le projet est configuré pour être **déployé automatiquement sur un serveur AWS** via **GitHub Actions**. 
+
+### 📌 Étapes du déploiement :
+1. **Push du code sur la branche `main`** déclenche la pipeline CI/CD.
+2. **GitHub Actions établit une connexion SSH** avec l'instance EC2.
+3. **Le code est synchronisé sur le serveur AWS** via `rsync`.
+4. **Docker Compose est exécuté pour redémarrer les services**.
+
+---
 ## 🖱️ Utilisation
 
 Ce projet permet de **prédire les prix des hôtels** en fonction des caractéristiques de l'hôtel et des conditions de réservation.
