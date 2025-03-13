@@ -75,9 +75,10 @@ Avant de commencer, assurez-vous d'avoir installé :
 │   ├── features_hotels.csv       # Caractéristiques des hôtels
 │   ├── synthetic_data.csv        # Données de prix simulées
 │   ├── test_set.csv              # Données de test
-│── model.ipynb                # Script d'entraînement et d'évaluation du modèle
-│── preprocess.ipynb            # Prétraitement des données
-│── generate_data.py        # Génération des données artificielles
+│── modelisation/                   # Preprocessing & Modélisation
+│   ├── model.ipynb                # Script d'entraînement et d'évaluation du modèle
+│   ├── preprocess.ipynb            # Prétraitement des données
+│   ├── generate_data.py        # Génération des données artificielles
 │── backend/                 # Dossier du backend (API Flask)
 │   ├── Dockerfile 📄         # Dockerfile pour l'API
 │   ├── backend_api.py 🖥️      # Code source de l'API
