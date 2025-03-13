@@ -130,6 +130,65 @@ python predict.py
 Les prédictions sont enregistrées dans `predictions.csv`.
 
 ---
+## 📦 Backend (API Flask)
+
+Le **backend** est développé en **Flask** et expose une API permettant de faire des prédictions de prix d’hôtels à partir de caractéristiques fournies en entrée.
+
+### 📌 Fonctionnalités :
+- Une **route `/predict`** qui prend un JSON en entrée et retourne une prédiction.
+- Chargement du modèle de **Machine Learning** entraîné.
+- Prétraitement des données avant la prédiction.
+
+### 🚀 Exécuter le backend avec Docker :
+
+```bash
+cd backend
+docker build -t hotel_price_backend .
+docker run -p 5000:5000 hotel_price_backend
+```
+
+## 🚀 Exécuter avec Docker Compose
+
+### 📌 Commande pour démarrer les services :
+```bash
+docker-compose up --build
+```
+ 🌍 Accès aux services :
+📌 API Flask (Local) : http://localhost:5000
+📌 API Flask (Déployé sur AWS) : http://EC2_PUBLIC_IP:5000
+
+---
+
+## 🎨 Frontend (Streamlit)
+
+Le **frontend** est développé avec **Streamlit** pour fournir une interface utilisateur simple et interactive permettant d’interagir avec l’API.
+
+### 📌 Fonctionnalités :
+- Interface permettant aux utilisateurs d’entrer des caractéristiques d’un hôtel.
+- Envoi de ces caractéristiques à l’API Flask pour obtenir une prédiction.
+- Affichage des prix estimés.
+
+---
+## ✅ Tests Automatisés
+
+Le projet inclut des tests unitaires et d’intégration pour assurer la fiabilité du backend.
+
+### 🔍 Exécuter les tests avec pytest :
+```bash
+cd backend
+pytest
+```
+---
+### 🔍 Exécuter les tests avec Docker :
+```bash
+docker-compose run backend pytest
+```
+### 🛠️ Les tests couvrent :
+- La disponibilité de l’API.
+- La validité des réponses de `/predict`.
+- La gestion des erreurs.
+
+---
 
 ## 🖱️ Utilisation
 
