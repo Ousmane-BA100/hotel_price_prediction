@@ -37,7 +37,8 @@ L'objectif est de :
 ✅ **Analyser les facteurs influençant les prix** des hôtels.  
 ✅ **Générer des prix artificiels** pour entraîner un modèle de prédiction.  
 ✅ **Développer un modèle de Machine Learning** capable d'estimer les prix des hôtels avec précision.  
-✅ **Déployer une API Flask et une interface utilisateur** avec Streamlit pour des prédictions en temps réel.    
+✅ **Déployer une API Flask et une interface utilisateur** avec Streamlit pour des prédictions en temps réel.  
+✅ **Automatiser le déploiement sur une instance AWS EC2 Ubuntu** via **GitHub Actions** et **Docker Compose**, permettant une mise à jour continue et un accès distant aux services. 🚀   
 
 ---
 
@@ -48,6 +49,9 @@ L'objectif est de :
 - [🚀 Exécution](#exécution)
 - [🖱️ Utilisation](#utilisation)
 - [🛠️ Technologies utilisées](#technologies-utilisées)
+- [📦 Backend (API Flask)](#backend-api-flask)
+- [🎨 Frontend (Streamlit)](#frontend-streamlit)
+- [✅ Tests Automatisés](#tests-automatisés)
 - [👨‍💻 Auteurs](#auteurs)
 - [📜 Licence](#licence)
 - [🤝 Contribuer](#contribuer)
