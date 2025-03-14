@@ -161,7 +161,38 @@ docker-compose up --build
 ### 🌍 Accès aux services :
 - 📌 **API Flask (Local)** : [http://localhost:5000](http://localhost:5000)
 - 📌 **API Flask (Déployé sur AWS)** : [http://EC2_PUBLIC_IP:5000](http://EC2_PUBLIC_IP:5000)
+---
+### 📌 Tester la prédiction des prix avec une requête **POST** 
 
+Utilisez **Postman** pour envoyer une requête `POST` à l'endpoint `/predict` avec les données suivantes :
+
+- **URL (Local) :** `http://localhost:5000/predict`
+- **URL (Déployé sur AWS) :** `http://EC2_PUBLIC_IP:5000/predict`
+- **Méthode :** `POST`
+- **Headers :** `Content-Type: application/json`
+- **Body (JSON) :** 
+
+```json
+{
+  "order_requests": 10,
+  "city_x": "amsterdam",
+  "date": 10,
+  "language": 1,
+  "mobile": 0,
+  "stock": 10,
+  "group": 1,
+  "brand": 1,
+  "parking": 0,
+  "pool": 0,
+  "children_policy": 0
+}
+```
+ ### 📌 Réponse attendue :
+```json
+{
+  "predicted_price": 245.75
+}
+``` 
 ---
 
 ## 🎨 Frontend (Streamlit)
