@@ -33,7 +33,21 @@ Le **temps presse** car la **CMA** (l’autorité de la concurrence britannique)
 
 ⚠️ **L’équipe compte sur vous pour lever le voile sur l’algorithme et ses potentielles irrégularités !**  
 
-Cependant, comme les prix réels ne sont pas disponibles, j'ai choisi de **les générer artificiellement** en nous basant sur des tendances observées dans le secteur hôtelier.  
+---
+
+⚠️ **Remarque importante : Une solution alternative a été adoptée**  
+
+Dans le cadre de ce projet, l'API de l'agence **1001NightsHotels.com** n'est **plus accessible**, ce qui signifie que **le scraper fourni ne peut pas être utilisé** pour récupérer les prix réels des hôtels.  
+
+💡 **Solution adoptée :**  
+Pour **contourner cette limitation**, j’ai choisi de **générer artificiellement les prix** en **m’appuyant sur des tendances observées dans le secteur hôtelier**.  
+
+✅ **Pourquoi cette approche ?**  
+- Maintenir un **scénario réaliste** pour l’entraînement du modèle.  
+- Reproduire les logiques économiques classiques du marché hôtelier.  
+- Permettre la construction et la validation d’un **modèle de prédiction fonctionnel** malgré l’indisponibilité des données réelles.  
+
+📌 **En résumé :** Bien que les prix générés ne soient pas issus de l’API officielle, ils sont conçus pour **simuler un comportement de pricing crédible** basé sur des facteurs réels influençant les prix des hôtels. 
 
 ---
 
