@@ -30,11 +30,17 @@ date = st.slider("📅 Jour de réservation (ex: J-10 avant la date souhaitée)"
 
 # 🌐 **Langue**
 language_mapping = {
-    "Français": 1,
-    "Anglais": 2,
-    "Espagnol": 3,
-    "Italien": 4,
-    "Allemand": 5
+    "Français (fr, lux, be)": 1,
+    "Anglais (en, ir)": 2,
+    "Espagnol/Portugais (es, pt)": 3,
+    "Italien/Maltais (it, mt)": 4,
+    "Allemand/Austro (de, at)": 5,
+    "Europe de l'Est (ro, sk, hu, bg)": 6,
+    "Pays Nordiques (da, sv, fi, no)": 7,
+    "Grec (el, cy)": 8,
+    "Balkans (hr, sl, sr, bs)": 9,
+    "Europe Centrale (pl, cz)": 10,
+    "Pays Baltes (et, lv, lt)": 11
 }
 language_label = st.selectbox("🌐 Langue du client", list(language_mapping.keys()))
 language = language_mapping[language_label]  # Convertir en code
