@@ -90,7 +90,6 @@ L'objectif est de :
 - [📂 Structure du projet](#structure-du-projet)
 - [📥 Installation](#installation)
 - [🚀 Exécution](#exécution)
-- [🖱️ Utilisation](#utilisation)
 - [🛠️ Technologies utilisées](#technologies-utilisées)
 - [📦 Backend (API Flask)](#backend-api-flask)
 - [🎨 Frontend (Streamlit)](#frontend-streamlit)
@@ -135,49 +134,8 @@ Avant de commencer, assurez-vous d'avoir installé :
 │── requirements.txt         # Dépendances du projet
 │── README.md                # Explication du projet
 ```
-
 ---
 
-## 📥 Installation
-
-1️⃣ **Cloner le projet**
-```bash
-git clone https://github.com/votre-repo/hotel_price_prediction.git
-cd hotel_price_prediction
-```
-
-2️⃣ **Installer les dépendances**
-```bash
-pip install -r requirements.txt
-```
-
----
-
-## 🚀 Exécution
-
-### 🔹 **1. Générer des données artificielles (si besoin)**
-```bash
-python generate_data.py
-```
-
-### 🔹 **2. Prétraiter les données**
-```bash
-python preprocess.py
-```
-
-### 🔹 **3. Entraîner le modèle**
-```bash
-python model.py
-```
-
-### 🔹 **4. Faire des prédictions**
-```bash
-python predict.py
-```
-
-Les prédictions sont enregistrées dans `predictions.csv`.
-
----
 ## 📦 Backend (API Flask)
 
 Le **backend** est développé en **Flask** et expose une API permettant de faire des prédictions de prix d’hôtels à partir de caractéristiques fournies en entrée.
