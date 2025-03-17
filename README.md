@@ -31,11 +31,11 @@ Votre objectif est de **décortiquer l'algorithme de pricing de l’agence** et 
 
 Le **temps presse** car la **CMA** (l’autorité de la concurrence britannique) est **également sur le coup** et souhaite frapper **fort** contre **les pratiques abusives dans le secteur du tourisme**.  
 
-⚠️ **L’équipe compte sur vous pour lever le voile sur l’algorithme et ses potentielles irrégularités !**  
+👨‍💻 **L’équipe compte sur vous pour lever le voile sur l’algorithme et ses potentielles irrégularités !**  
 
 ---
 
-⚠️ **Remarque importante : Une solution alternative a été adoptée**  
+⚠️ **Remarque importante : Une solution alternative a été adoptée pour l'api**  
 
 Dans le cadre de ce projet, l'API de l'agence **1001NightsHotels.com** n'est **plus accessible**, ce qui signifie que **le scraper fourni ne peut pas être utilisé** pour récupérer les prix réels des hôtels.  
 
