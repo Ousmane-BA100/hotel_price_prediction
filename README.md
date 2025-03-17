@@ -1,29 +1,6 @@
 # 📌 Projet : Prédiction des Prix des Hôtels 🏨
 
-## 📊 Présentation du Dataset  
-Le dataset utilisé dans ce projet combine des données réelles et des données simulées :  
-
-📍 **Caractéristiques des hôtels** (`features_hotels.csv`) : localisation, marque, parking, piscine, politique enfants.  
-🏨 **Informations sur les réservations** (`test_set.csv`) : ville, date, langue du client, mobile ou non, stock de chambres.  
-💰 **Prix des hôtels** (`synthetic_data.csv`) : valeur cible à prédire, générée artificiellement.  
-
-Les caractéristiques des hôtels et les informations sur les réservations proviennent de **données fournies**, tandis que les **prix sont générés artificiellement** afin de simuler un scénario réaliste et entraîner un modèle de Machine Learning.  
-
----
-## 🎯 Stratégie pour générer des prix réalistes
-
-### 📌 Objectif :
-- Prix moyen autour de **200-300 €**.
-- Minimum autour de **70 €**, maximum autour de **500 €** (éviter les valeurs extrêmes).
-
-### 🔍 Facteurs influençant le prix :
-- **Stock bas** → Prix plus élevés.
-- **Piscine, parking, marque d'hôtel** → Ajoutent une valeur au prix.
-- **Variabilité aléatoire contrôlée** pour éviter les valeurs trop extrêmes.
-
----
-
-## 🏆 Défi IA 2023 : 1001 Nights  
+## 🏆 Défi IA : 1001 Nights  
 
 ### 📖 Un peu de contexte…  
 
@@ -56,7 +33,30 @@ Le **temps presse** car la **CMA** (l’autorité de la concurrence britannique)
 
 ⚠️ **L’équipe compte sur vous pour lever le voile sur l’algorithme et ses potentielles irrégularités !**  
 
-Cependant, comme les prix réels ne sont pas disponibles, nous avons choisi de **les générer artificiellement** en nous basant sur des tendances observées dans le secteur hôtelier.  
+Cependant, comme les prix réels ne sont pas disponibles, j'ai choisi de **les générer artificiellement** en nous basant sur des tendances observées dans le secteur hôtelier.  
+
+---
+
+## 📊 Présentation du Dataset  
+Le dataset utilisé dans ce projet combine des données réelles et des données simulées :  
+
+📍 **Caractéristiques des hôtels** (`features_hotels.csv`) : localisation, marque, parking, piscine, politique enfants.  
+🏨 **Informations sur les réservations** (`test_set.csv`) : ville, date, langue du client, mobile ou non, stock de chambres.  
+💰 **Prix des hôtels** (`synthetic_data.csv`) : valeur cible à prédire, générée artificiellement.  
+
+Les caractéristiques des hôtels et les informations sur les réservations proviennent de **données fournies**, tandis que les **prix sont générés artificiellement** afin de simuler un scénario réaliste et entraîner un modèle de Machine Learning.  
+
+---
+## 🎯 Stratégie pour générer des prix réalistes
+
+### 📌 Objectif :
+- Prix moyen autour de **200-300 €**.
+- Minimum autour de **70 €**, maximum autour de **500 €** (éviter les valeurs extrêmes).
+
+### 🔍 Facteurs influençant le prix :
+- **Stock bas** → Prix plus élevés.
+- **Piscine, parking, marque d'hôtel** → Ajoutent une valeur au prix.
+- **Variabilité aléatoire contrôlée** pour éviter les valeurs trop extrêmes.
 
 ---
 
