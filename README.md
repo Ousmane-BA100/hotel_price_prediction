@@ -1,4 +1,4 @@
-# 📌 Projet : Prédiction des Prix des Hôtels 🏨
+# 📌 Projet : Prédiction des Prix d'une nuit des Hôtels 🏨
 
 ## 🏆 Défi IA : 1001 Nights  
 
