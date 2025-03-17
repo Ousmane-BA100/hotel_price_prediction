@@ -95,7 +95,6 @@ L'objectif est de :
 - [🎨 Frontend (Streamlit)](#frontend-streamlit)
 - [✅ Tests Automatisés](#tests-automatisés)
 - [👨‍💻 Auteurs](#auteurs)
-- [📜 Licence](#licence)
 - [🤝 Contribuer](#contribuer)
 - [❓ Questions ou problèmes](#questions-ou-problèmes)
 
@@ -264,12 +263,6 @@ Ce projet utilise les technologies suivantes :
 ## 👨‍💻 Auteurs
  
 👨‍💻 **Ousmane BA** : Développeur principal  
-
----
-
-## 📜 Licence
-
-Ce projet est sous licence **MIT**. Voir le fichier `LICENSE` pour plus de détails.
 
 ---
 
