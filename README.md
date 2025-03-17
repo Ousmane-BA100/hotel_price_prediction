@@ -23,9 +23,38 @@ Les caractéristiques des hôtels et les informations sur les réservations prov
 
 ---
 
-## 🏥 Contexte  
-La **DGCCRF** d’un pays imaginaire a reçu des plaintes sur l’agence en ligne **1001NightsHotels.com**, suspectée de pratiquer des **prix à la tête du client**.  
-L’objectif est d’analyser le système de tarification de cette agence et de vérifier s’il existe des **irrégularités**.  
+# 🏆 Défi IA 2023 : 1001 Nights  
+
+## 📖 Un peu de contexte…  
+
+La **DGCCRF** (équivalent de la répression des fraudes) d'un **pays imaginaire** vient de recevoir des **plaintes** concernant une **agence de voyage en ligne** (*1001NightsHotels.com*). Cette agence est suspectée de **pratiquer des prix à la tête du client**, ce qui pourrait **tromper les consommateurs**. Cependant, les faits dénoncés restent **flous**, nécessitant une **enquête approfondie** avant toute action en justice.  
+
+L’agence propose divers services (**réservations d'hôtels, vols, packages vacances, activités de loisirs**), mais l’enquête concerne **exclusivement la partie hôtellerie**.  
+
+### 🔍 Enquête ciblée sur l'hôtellerie en Europe  
+
+Les plaintes reçues concernent uniquement des **consommateurs européens** ayant réservé des hôtels dans des **villes européennes**. La **DGCCRF** a identifié **9 villes clés** comme représentatives du marché hôtelier en Europe et souhaite concentrer son **investigation sur ces villes**.  
+
+### 👨‍💻 Votre mission en tant que Data Scientist  
+
+Votre réputation de **Data Scientist talentueux** vous a permis d'obtenir un **stage** dans l’équipe en charge de la **pré-enquête**.  
+
+🛠️ **Moyens mis à votre disposition :**  
+- **Des puissants moyens de calcul** pour analyser les données.  
+- **Un scraper** permettant de collecter les données des prix affichés par l'agence.  
+
+Cependant, pour ne pas éveiller les soupçons de **1001NightsHotels.com**, **le nombre de requêtes que vous pouvez envoyer est limité**.  
+
+### 🎯 Objectif  
+
+Votre objectif est de **décortiquer l'algorithme de pricing de l’agence** et de comprendre **les facteurs qui influencent les prix**.  
+
+🔹 **Serez-vous capable de prédire avec précision les prix fixés par l’algorithme de l’agence ?**  
+🔹 **Détecterez-vous des biais dans la tarification pratiquée ?**  
+
+Le **temps presse** car la **CMA** (l’autorité de la concurrence britannique) est **également sur le coup** et souhaite frapper **fort** contre **les pratiques abusives dans le secteur du tourisme**.  
+
+⚠️ **L’équipe compte sur vous pour lever le voile sur l’algorithme et ses potentielles irrégularités !**  
 
 Cependant, comme les prix réels ne sont pas disponibles, nous avons choisi de **les générer artificiellement** en nous basant sur des tendances observées dans le secteur hôtelier.  
 
