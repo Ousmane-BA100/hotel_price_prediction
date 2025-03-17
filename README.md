@@ -23,9 +23,9 @@ Les caractéristiques des hôtels et les informations sur les réservations prov
 
 ---
 
-# 🏆 Défi IA 2023 : 1001 Nights  
+## 🏆 Défi IA 2023 : 1001 Nights  
 
-## 📖 Un peu de contexte…  
+### 📖 Un peu de contexte…  
 
 La **DGCCRF** (équivalent de la répression des fraudes) d'un **pays imaginaire** vient de recevoir des **plaintes** concernant une **agence de voyage en ligne** (*1001NightsHotels.com*). Cette agence est suspectée de **pratiquer des prix à la tête du client**, ce qui pourrait **tromper les consommateurs**. Cependant, les faits dénoncés restent **flous**, nécessitant une **enquête approfondie** avant toute action en justice.  
 
