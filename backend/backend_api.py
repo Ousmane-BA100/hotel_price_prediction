@@ -90,8 +90,6 @@ def preprocess_input(data):
 def health_check():
     return jsonify({"status": "API is running"}), 200
 
-import json
-
 @app.route("/predict", methods=["POST"])
 def predict():
     if model is None:
@@ -121,6 +119,7 @@ def predict():
     except Exception as e:
         print(f"❌ Erreur interne du modèle : {e}")
         return jsonify({"error": str(e)}), 500
+
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=5000)
