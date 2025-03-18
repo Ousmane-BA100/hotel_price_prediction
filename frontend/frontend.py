@@ -122,10 +122,10 @@ with col3:
     children_policy = children_policy_mapping[children_policy_label]
 
 # 🔥 **Envoyer les données à l'API Flask**
+# 🔥 **Envoyer les données à l'API Flask**
 if st.button("🚀 Prédire le prix"):
     input_data = {
-        "index": index,
-        "order_requests": 10,  # Valeur par défaut pour l'instant
+        "order_requests": 10,
         "city_x": city_x,
         "date": date,
         "language": language,
@@ -138,10 +138,18 @@ if st.button("🚀 Prédire le prix"):
         "children_policy": children_policy
     }
 
-    response = requests.post(API_URL, json=input_data)
+    try:
+        response = requests.post(API_URL, json=input_data, timeout=10)
 
-    if response.status_code == 200:
-        predicted_price = response.json()["predicted_price"]
-        st.success(f"💰 Prix estimé : **{predicted_price} €**")
-    else:
-        st.error(f"❌ Erreur dans la prédiction. Message : {response.json()}")
+        print(f"🔍 Réponse brute de l'API : {response.text}")  # ✅ Debugging
+
+        if response.status_code == 200:
+            try:
+                predicted_price = response.json()["predicted_price"]
+                st.success(f"💰 Prix estimé : **{predicted_price} €**")
+            except Exception as e:
+                st.error(f"❌ Erreur JSON dans la réponse : {e}")
+        else:
+            st.error(f"❌ Erreur API ({response.status_code}) : {response.text}")
+    except requests.exceptions.RequestException as e:
+        st.error(f"❌ Impossible de contacter l'API : {e}")
