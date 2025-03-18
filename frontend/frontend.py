@@ -66,6 +66,7 @@ group_mapping = {
 group_label = st.selectbox("🏢 Groupe d'hôtel", list(group_mapping.keys()))
 group = group_mapping[group_label]
 
+###
 # 🏷 **Marque d'hôtel**
 brand_mapping = {
     "Sans marque": 0,
