@@ -37,14 +37,16 @@ def preprocess_input(data):
     else:
         return None, f"❌ Ville inconnue : {df['city_x'].iloc[0]}"
 
-    # 📌 Vérifier les colonnes manquantes
+    # 📌 Vérifier les colonnes manquantes après suppression de "index"
     missing_cols = set(expected_features) - set(df.columns)
     if missing_cols:
-        return None, f"❌ Colonnes manquantes : {missing_cols}"
+        return None, f"❌ Colonnes manquantes après filtrage : {missing_cols}"
 
     # 📌 Réorganiser les colonnes pour correspondre au modèle
     df = df[expected_features]
 
+    print(f"📊 Colonnes après preprocessing : {df.columns.tolist()}")
+    
     return df, None
 
 @app.route("/", methods=["GET"])

@@ -4,7 +4,7 @@ FROM python:3.10
 # Définir le répertoire de travail dans le conteneur
 WORKDIR /app
 
-# Installer les dépendances système nécessaires
+## Installer les dépendances système nécessaires
 RUN apt-get update && apt-get install -y \
     build-essential cmake ninja-build python3-dev ca-certificates && \
     update-ca-certificates && \
