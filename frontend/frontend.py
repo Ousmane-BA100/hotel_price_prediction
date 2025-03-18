@@ -28,6 +28,9 @@ city_x = city_mapping[city_label]  # Convertir en code attendu par l'API
 # 📅 **Jour de réservation**
 date = st.slider("📅 Jour de réservation (ex: J-10 avant la date souhaitée)", min_value=0, max_value=40, value=10)
 
+# 📌 Ajouter un champ pour l'index
+index = st.number_input("🔢 Index (valeur unique pour chaque requête)", min_value=0, value=0)
+
 # 🌐 **Langue**
 language_mapping = {
     "Français (fr, lux, be)": 1,
@@ -120,6 +123,7 @@ with col3:
 # 🔥 **Envoyer les données à l'API Flask**
 if st.button("🚀 Prédire le prix"):
     input_data = {
+        "index": index,
         "order_requests": 10,  # Valeur par défaut pour l'instant
         "city_x": city_x,
         "date": date,

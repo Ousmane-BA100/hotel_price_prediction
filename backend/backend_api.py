@@ -31,13 +31,11 @@ def preprocess_input(data):
     """Transforme les données d'entrée pour correspondre au modèle."""
     df = pd.DataFrame([data])
 
-    # 📌 Vérifier si la ville est connue dans l'encodage
-    if df["city_x"].iloc[0] in city_encoding:
-        df["city_x"] = city_encoding[df["city_x"].iloc[0]]
-    else:
-        return None, f"❌ Ville inconnue : {df['city_x'].iloc[0]}"
+    # 📌 Vérifier si l'index est présent, sinon l'ajouter avec une valeur par défaut
+    if "index" not in df.columns:
+        return None, "❌ L'index est requis pour la prédiction."
 
-    # 📌 Vérifier les colonnes manquantes après suppression de "index"
+    # 📌 Vérifier les colonnes manquantes
     missing_cols = set(expected_features) - set(df.columns)
     if missing_cols:
         return None, f"❌ Colonnes manquantes après filtrage : {missing_cols}"
@@ -45,9 +43,8 @@ def preprocess_input(data):
     # 📌 Réorganiser les colonnes pour correspondre au modèle
     df = df[expected_features]
 
-    print(f"📊 Colonnes après preprocessing : {df.columns.tolist()}")
-    
     return df, None
+
 
 @app.route("/", methods=["GET"])
 def health_check():
