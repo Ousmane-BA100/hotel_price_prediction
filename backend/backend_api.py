@@ -90,20 +90,26 @@ def preprocess_input(data):
 def health_check():
     return jsonify({"status": "API is running"}), 200
 
+import json
+
 @app.route("/predict", methods=["POST"])
 def predict():
     if model is None:
         print("❌ Modèle non disponible")
         return jsonify({"error": "Modèle non disponible"}), 500
 
-    data = request.get_json()
-    print(f"📥 Données reçues : {data}")
+    try:
+        data = request.get_json()
+        print(f"📥 Données reçues (JSON brut) : {json.dumps(data, indent=2)}")
+    except Exception as e:
+        print(f"❌ Erreur lors de la réception des données JSON : {e}")
+        return jsonify({"error": f"Erreur JSON : {e}"}), 400  # Retourne une erreur si JSON mal formé
 
     df_transformed, error = preprocess_input(data)
 
     if error:
-        print(error)
-        return jsonify({"error": error}), 400  # Mauvaise requête si la ville est inconnue ou colonnes manquantes
+        print(f"❌ Problème de preprocessing : {error}")
+        return jsonify({"error": error}), 400  # Mauvaise requête si colonnes manquantes ou ville inconnue
 
     print(f"📊 Données encodées pour la prédiction :\n{df_transformed}")
 
@@ -113,7 +119,7 @@ def predict():
         print(f"✅ Prédiction réussie : {prediction}")
         return jsonify({"predicted_price": prediction})
     except Exception as e:
-        print(f"❌ Erreur interne : {e}")
+        print(f"❌ Erreur interne du modèle : {e}")
         return jsonify({"error": str(e)}), 500
 
 if __name__ == "__main__":
