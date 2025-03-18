@@ -33,43 +33,22 @@ def preprocess_input(data):
 
     # 📌 Encodage des variables catégoriques
     city_encoding = {
-        "amsterdam": 0,
-        "copenhagen": 1,
-        "madrid": 2,
-        "paris": 3,
-        "rome": 4,
-        "sofia": 5,
-        "valletta": 6,
-        "vienna": 7,
-        "vilnius": 8
+        "amsterdam": 0, "copenhagen": 1, "madrid": 2, "paris": 3, "rome": 4,
+        "sofia": 5, "valletta": 6, "vienna": 7, "vilnius": 8
     }
 
     language_encoding = {
-        "Français (fr, lux, be)": 1,
-        "Anglais (en, ir)": 2,
-        "Espagnol/Portugais (es, pt)": 3,
-        "Italien/Maltais (it, mt)": 4,
-        "Allemand/Austro (de, at)": 5,
-        "Europe de l'Est (ro, sk, hu, bg)": 6,
-        "Pays Nordiques (da, sv, fi, no)": 7,
-        "Grec (el, cy)": 8,
-        "Balkans (hr, sl, sr, bs)": 9,
-        "Europe Centrale (pl, cz)": 10,
-        "Pays Baltes (et, lv, lt)": 11
+        1: "french", 2: "english", 3: "spanish", 4: "italian", 5: "german",
+        6: "eastern_europe", 7: "nordic", 8: "greek", 9: "balkans",
+        10: "central_europe", 11: "baltic"
     }
 
     brand_encoding = {
-        "Sans marque": 0,
-        "Marque économique": 1,
-        "Marque intermédiaire": 2,
-        "Marque haut de gamme": 3
+        "Sans marque": 0, "Marque économique": 1, "Marque intermédiaire": 2, "Marque haut de gamme": 3
     }
 
     group_encoding = {
-        "Indépendant": 0,
-        "Groupe International": 1,
-        "Luxe": 2,
-        "Économique": 3
+        "Indépendant": 0, "Groupe International": 1, "Luxe": 2, "Économique": 3
     }
 
     # 📌 Vérifier si la ville est connue dans l'encodage
@@ -80,7 +59,7 @@ def preprocess_input(data):
 
     # 📌 Vérifier si la langue est connue dans l'encodage
     if df["language"].iloc[0] in language_encoding:
-        df["language"] = language_encoding[df["language"].iloc[0]]
+        df["language"] = list(language_encoding.keys())[list(language_encoding.values()).index(df["language"].iloc[0])]
     else:
         return None, f"❌ Langue inconnue : {df['language'].iloc[0]}"
 
@@ -105,7 +84,6 @@ def preprocess_input(data):
     df = df[expected_features]
 
     return df, None
-
 
 
 @app.route("/", methods=["GET"])

@@ -45,6 +45,7 @@ language_mapping = {
     "Europe Centrale (pl, cz)": 10,
     "Pays Baltes (et, lv, lt)": 11
 }
+
 language_label = st.selectbox("🌐 Langue du client", list(language_mapping.keys()))
 language = language_mapping[language_label]  # Convertir en code
 
